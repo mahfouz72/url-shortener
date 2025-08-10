@@ -1,14 +1,51 @@
-# Welcome to your CDK TypeScript project
+# URL Shortener – AWS Serverless
 
-This is a blank project for CDK development with TypeScript.
+A simple **serverless URL shortener** using **AWS Lambda**, **API Gateway**, **DynamoDB**, and **AWS CDK**.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+---
 
-## Useful commands
+## Features
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+* AWS Lambda – Handles URL creation and redirection.
+* API Gateway – Exposes REST endpoints for POST (shorten URL) and GET (redirect).
+* DynamoDB – Stores mappings between short codes and long URLs.
+---
+
+## Setup
+
+```sh
+# Install dependencies
+npm install
+
+# Bootstrap AWS CDK
+cdk bootstrap
+
+# Deploy to AWS
+cdk deploy
+```
+
+---
+
+## Usage
+
+**Shorten URL**
+
+```sh
+curl -X POST https://xxxxxx.execute-api.us-east-1.amazonaws.com/prod \
+  -d '{"url": "https://example.com/very/long/link"}'
+  ```
+
+**Response:**
+
+```json
+{ "shortUrl": "https://xxx.api.com/abcd1234" }
+```
+
+**Redirect**
+
+Visit: 
+```
+GET https://xxx.api.com/abcd1234/abcd1234
+```
+
+This will redirect to the original link
